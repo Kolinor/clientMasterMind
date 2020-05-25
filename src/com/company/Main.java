@@ -7,9 +7,6 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         IOCommand command = new IOCommand();
-//        boolean connexion = command.connexion("192.168.1.131", 6002);
-//        boolean connexion = command.connexion("192.168.1.24", 6003);
-//        boolean connexion = command.connexion("192.168.1.131", 6001);
         boolean connexion = command.connexion("192.168.1.25", 6002);
 
 

@@ -2,8 +2,6 @@ package com.company;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class IOCommand {
@@ -63,10 +61,6 @@ public class IOCommand {
         this.isRunning = false;
         Thread.sleep(100);
         socket.close();
-    }
-
-    public void setRunning(boolean etat) {
-        isRunning = etat;
     }
 
     public void run() {
