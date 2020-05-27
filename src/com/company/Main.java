@@ -7,13 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         IOCommand command = new IOCommand();
-        boolean connexion = command.connexion("192.168.1.25", 6002);
-
-
-//        int Min = 0;
-//        int Max = 2;
-//
-//        System.out.println(Min + (int)(Math.random() * ((Max - Min) + 1)));
+        boolean connexion = command.connexion("192.168.1.24", 6002);
 
         if(!connexion) return;
         command.run();
@@ -32,11 +26,18 @@ public class Main {
 
         do {
             command.ecrireEcran("Que voulez vous faire ?");
-            command.ecrireEcran("1. /serveur\n2. /clientDispo\n3. /speak + login\n4. /all\n5. /quit");
+            command.ecrireEcran("1. Mode classique\n2. Mode compétition\n5. quit");
             choix = command.lireEcran();
             speak = choix;
 
-        } while(!choix.equals("/quit"));
+            if (choix.equals("1")) {
+                command.ecrireEcran("Quel niveaux de difficultés voule-vous ?");
+                str = command.lireEcran();
+                System.out.println(str);
+                command.ecrireReseau("!1 " + str);
+            }
+
+        } while(!choix.equals("5"));
         command.ecrireReseau("quit");
         command.deconnexion();
     }
