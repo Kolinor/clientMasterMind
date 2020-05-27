@@ -2,6 +2,7 @@ package com.company;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOCommand {
@@ -9,7 +10,7 @@ public class IOCommand {
     private PrintStream ecritureEcran;
     private Socket socket;
     private boolean isRunning;
-
+    private ArrayList<String> couleur = new ArrayList<>();
 
 
     public IOCommand() throws IOException {
@@ -26,14 +27,22 @@ public class IOCommand {
         System.out.println(texte);
     }
 
-    public String lireEcran() {
+    public void ecrireEcran(ArrayList<String> texte) {
+        System.out.println(texte);
+    }
+
+    public String lireEcran(String text) {
         Scanner sc = new Scanner(System.in);
         String str;
-        System.out.println("Rentrer un texte :");
+        if (!text.equals("")) System.out.println(text);
 
         String chaine = sc.nextLine();
         System.out.println(chaine);
         return chaine;
+    }
+
+    public String lireEcran() {
+        return lireEcran("Rentrer un texte");
     }
 
     public void ecrireReseau(String texte) throws IOException {
@@ -63,6 +72,19 @@ public class IOCommand {
         socket.close();
     }
 
+    public void couleurDisponible() {
+        for (int i = 0; i < couleur.size(); i++) {
+            System.out.println(i + " : " + couleur.get(i));
+        }
+    }
+
+    public void setCouleurDisponible(String response) {
+        String[] arrOfStr = response.split(" ");
+
+        for (String s : arrOfStr)
+            if (!s.equals("!couleur")) couleur.add(s);
+    }
+
     public void run() {
         this.isRunning = true;
         Thread t = new Thread(new Runnable() {
@@ -70,6 +92,7 @@ public class IOCommand {
                 while(isRunning) {
                     try {
                         String retourServ = lireReseau();
+                        if (retourServ.length() > 8 && retourServ.substring(0, 8).equals("!couleur")) setCouleurDisponible(retourServ);
                         ecrireEcran("serv> " + retourServ);
                     } catch (IOException e) {
                         e.printStackTrace();
