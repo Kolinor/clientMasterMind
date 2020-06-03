@@ -139,7 +139,7 @@ public class IOCommand {
                         if (retourServ.length() > 4 && retourServ.substring(0, 4).equals("!win")) win(retourServ);
                         if (retourServ.length() > 6 && retourServ.substring(0, 6).equals("!loose")) loose(retourServ);
 
-                        ecrireEcran("serv> " + retourServ);
+//                        ecrireEcran("serv> " + retourServ);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
