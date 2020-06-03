@@ -11,6 +11,8 @@ public class IOCommand {
     private Socket socket;
     private boolean isRunning;
     private ArrayList<String> couleur = new ArrayList<>();
+    private boolean isWin = false;
+    private boolean isLoose = false;
 
 
     public IOCommand() throws IOException {
@@ -85,6 +87,46 @@ public class IOCommand {
             if (!s.equals("!couleur")) couleur.add(s);
     }
 
+    public void getIndiceCouleur(String response) {
+        String[] arrOfStr = response.split(" ");
+        String str = "Indice : ";
+
+        for (String s : arrOfStr) {
+            if (!s.equals("!indice")) str += s + " ";
+        }
+        System.out.println(str);
+    }
+
+    public void win(String response) {
+        String[] arrOfStr = response.split(" ");
+        isWin = true;
+        System.out.println("Tu as gagné en " + arrOfStr[1] + " essai(s) !");
+    }
+
+    public boolean getWin() throws InterruptedException {
+        Thread.sleep(100);
+        if (isWin) {
+            isWin = false;
+            return true;
+        }
+        return isWin;
+    }
+
+    public void loose(String response) {
+        String[] arrOfStr = response.split(" ");
+        isLoose = true;
+        System.out.println("Tu as perdu en " + arrOfStr[1] + " essai(s) !");
+    }
+
+    public boolean getLoose() throws InterruptedException {
+        Thread.sleep(100);
+        if (isLoose) {
+            isLoose = false;
+            return true;
+        }
+        return isLoose;
+    }
+
     public void run() {
         this.isRunning = true;
         Thread t = new Thread(new Runnable() {
@@ -93,6 +135,10 @@ public class IOCommand {
                     try {
                         String retourServ = lireReseau();
                         if (retourServ.length() > 8 && retourServ.substring(0, 8).equals("!couleur")) setCouleurDisponible(retourServ);
+                        if (retourServ.length() > 7 && retourServ.substring(0, 7).equals("!indice")) getIndiceCouleur(retourServ);
+                        if (retourServ.length() > 4 && retourServ.substring(0, 4).equals("!win")) win(retourServ);
+                        if (retourServ.length() > 6 && retourServ.substring(0, 6).equals("!loose")) loose(retourServ);
+
                         ecrireEcran("serv> " + retourServ);
                     } catch (IOException e) {
                         e.printStackTrace();

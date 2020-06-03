@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         IOCommand command = new IOCommand();
-        boolean connexion = command.connexion("192.168.1.24", 6002);
+        boolean connexion = command.connexion("192.168.1.25", 6002);
 
         if(!connexion) return;
         command.run();
@@ -39,6 +39,8 @@ public class Main {
                 do {
                     command.ecrireEcran("Choisir une combinaison");
                     command.couleurDisponible();
+                    if (command.getWin()) break;
+                    if (command.getLoose()) break;
                     str = command.lireEcran("Rentrer une combinaison de " + difficulty + " couleurs");
                     command.ecrireReseau("!1 " + str);
                 } while(!str.equals("5"));
