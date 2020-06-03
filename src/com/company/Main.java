@@ -26,7 +26,7 @@ public class Main {
 
         do {
             command.ecrireEcran("Que voulez vous faire ?");
-            command.ecrireEcran("1. Mode classique\n2. Mode compétition\n5. quit");
+            command.ecrireEcran("1. Mode classique\n2. Mode compétition\n3. Mode aventure\n5. quit");
             choix = command.lireEcran("");
             speak = choix;
 
@@ -36,14 +36,23 @@ public class Main {
                 System.out.println(str);
                 command.ecrireReseau("!1 " + str);
 
-                do {
+                while (true) {
                     command.ecrireEcran("Choisir une combinaison");
                     command.couleurDisponible();
                     if (command.getWin()) break;
                     if (command.getLoose()) break;
-                    str = command.lireEcran("Rentrer une combinaison de " + difficulty + " couleurs");
+                    str = command.lireEcran("Rentrer une combinaison de " + difficulty + " couleurs ou 'quit'");
+                    if (str.equals("quit")) {
+                        command.ecrireReseau("stop");
+                        break;
+                    }
                     command.ecrireReseau("!1 " + str);
-                } while(!str.equals("5"));
+                }
+            } else if (choix.equals("2")) {
+
+            } else if (choix.equals("3")) {
+                command.ecrireEcran("Bienvenue dans le mode aventure !");
+                command.ecrireReseau("!3");
             }
 
         } while(!choix.equals("5"));
