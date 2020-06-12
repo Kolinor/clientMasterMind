@@ -12,7 +12,7 @@ public class Main {
 
         if(!connexion) return;
         command.run();
-        String str = "";
+        String str;
         String choix = "";
         int difficulty;
         int select;
@@ -22,6 +22,7 @@ public class Main {
         Thread.sleep(100);
 
         do {
+            str = "";
             command.ecrireEcran("Que voulez vous faire ?");
             command.ecrireEcran("1. Mode classique\n2. Mode compétition\n3. Mode aventure\n5. quit");
             choix = command.lireEcran("");
@@ -72,7 +73,7 @@ public class Main {
                                 command.ecrireReseau("stop");
                                 break;
                             }
-                            command.ecrireReseau("!1 " + str);
+//                            command.ecrireReseau("!3 " + str);
                         }
                         if (difficulty == 10) command.ecrireEcran("Vous avez terminé le mode aventure !");
                         difficulty++;
@@ -83,8 +84,6 @@ public class Main {
             }
 
             ArrayList<String> t = new ArrayList<>();
-
-
 
         } while(!choix.equals("5"));
         command.ecrireReseau("quit");
