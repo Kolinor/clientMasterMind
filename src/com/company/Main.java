@@ -51,7 +51,7 @@ public class Main {
                 command.ecrireEcran("Bienvenue dans le mode aventure !");
                 str = command.lireEcran("1. Nouvelle partie\n2. Charger une partie");
                 select = Integer.parseInt(str);
-                command.ecrireReseau("!3 " + str);
+
                 if (select == 1) {
                     difficulty = 1;
                     while (difficulty == 10 || !str.equals("quit")) {
@@ -73,13 +73,14 @@ public class Main {
                                 command.ecrireReseau("stop");
                                 break;
                             }
-//                            command.ecrireReseau("!3 " + str);
+                            command.ecrireReseau("!3 " + str);
+                            System.out.println("test");
                         }
                         if (difficulty == 10) command.ecrireEcran("Vous avez terminé le mode aventure !");
                         difficulty++;
                     }
                 } else {
-
+                    command.ecrireReseau("!3 " + "load");
                 }
             }
 
